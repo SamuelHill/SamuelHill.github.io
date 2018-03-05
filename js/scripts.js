@@ -2,7 +2,7 @@
 * @Authors: Nisha Bhuva, Emily Blackman, Samuel Hill
 * @Date: 2018-02-14 01:24:18
 * @Last Modified by:   SAMHILLPC\Sam Hill
-* @Last Modified time: 2018-02-26 04:35:16
+* @Last Modified time: 2018-03-04 20:23:37
 */
 
 window.onload = function() {
@@ -230,6 +230,33 @@ window.onload = function() {
         ifTrueDisplay(selectedDiet.indexOf('noRestrictions') != -1, typeOfMeat);
         var noRestrictions = document.getElementById('mealsPerDay');
         ifTrueDisplay(selectedDiet.indexOf('noRestrictions') != -1, mealsPerDay);
+    });
+
+    // Goals Tab
+    var parispresets = document.getElementById('paris-presets');
+    var averagepresets = document.getElementById('average-presets');
+    var customgoals = document.getElementById('custom-goals');
+    var eiffelBadge = document.getElementById('eiffelBadge');
+    var goalPresetsRadio1 = document.getElementById('goalPresetsRadio1');
+    goalPresetsRadio1.addEventListener('click', function() {
+        ifTrueDisplay(goalPresetsRadio1.checked, parispresets);
+        ifTrueDisplay(false, averagepresets);
+        ifTrueDisplay(false, customgoals);
+        eiffelBadge.style.backgroundColor = '#7B9F86';
+    });
+    var goalPresetsRadio2 = document.getElementById('goalPresetsRadio2');
+    goalPresetsRadio2.addEventListener('click', function() {
+        ifTrueDisplay(false, parispresets);
+        ifTrueDisplay(goalPresetsRadio2.checked, averagepresets);
+        ifTrueDisplay(false, customgoals);
+        eiffelBadge.style.backgroundColor = '#B1BFC6';
+    });
+    var goalPresetsRadio3 = document.getElementById('goalPresetsRadio3');
+    goalPresetsRadio3.addEventListener('click', function() {
+        ifTrueDisplay(false, parispresets);
+        ifTrueDisplay(false, averagepresets);
+        ifTrueDisplay(goalPresetsRadio3.checked, customgoals);
+        eiffelBadge.style.backgroundColor = '#B1BFC6';
     });
 }
 
