@@ -2,7 +2,7 @@
 * @Authors: Nisha Bhuva, Emily Blackman, Samuel Hill
 * @Date: 2018-02-14 01:24:18
 * @Last Modified by:   SAMHILLPC\Sam Hill
-* @Last Modified time: 2018-03-04 20:23:37
+* @Last Modified time: 2018-03-16 00:48:26
 */
 
 window.onload = function() {
@@ -13,7 +13,9 @@ window.onload = function() {
     var assessmentNavItem = document.getElementById('navbar-assessment-li');
     // Navbar controls
     var navbarAbout = document.getElementById('navbar-about-a');
+    var jumbo = document.getElementById('jumbo');
     navbarAbout.addEventListener('click', function(){
+        jumbo.style.display = 'block';
         aboutSection.style.display = 'block';
         assessmentSection.style.display = 'none';
         assessmentNavItem.classList.remove('active');
@@ -21,6 +23,7 @@ window.onload = function() {
     var navbarAssessment = document.getElementById('navbar-assessment-a');
     navbarAssessment.addEventListener('click', function(){
         aboutSection.style.display = 'none';
+        jumbo.style.display = 'none';
         assessmentSection.style.display = 'block';
         assessmentNavItem.classList.add('active');
     });
@@ -39,10 +42,6 @@ window.onload = function() {
     var takeAssessmentButton = document.getElementById('takeAssessmentButton');
     takeAssessmentButton.addEventListener('click', function() {
         navbarAssessment.click();
-    });
-    var loginButton = document.getElementById('loginButton');
-    loginButton.addEventListener('click', function() {
-        navbarLogin.click();
     });
 
     // Assessment navigation
@@ -74,9 +73,16 @@ window.onload = function() {
     continueResults.addEventListener('click', function() {
         document.getElementById('goalsTab').click();
     });
-    var goalsResults = document.getElementById('goalsResults');
-    goalsResults.addEventListener('click', function() {
+    var backGoals = document.getElementById('backGoals');
+    backGoals.addEventListener('click', function() {
         document.getElementById('resultsTab').click();
+    });
+    var doneAssessment = document.getElementById('doneAssessment');
+    var homeTab = document.getElementById('homeTab');
+    doneAssessment.addEventListener('click', function() {
+        homeTab.click();
+        navbarAbout.click();
+        $('#done_modal').modal('show');
     });
 
     // Home Tab
@@ -233,6 +239,10 @@ window.onload = function() {
     });
 
     // Goals Tab
+    var goalsTab = document.getElementById('goalsTab');
+    goalsTab.addEventListener('click', function() {
+        $('#goals_modal').modal('show');
+    });
     var parispresets = document.getElementById('paris-presets');
     var averagepresets = document.getElementById('average-presets');
     var customgoals = document.getElementById('custom-goals');
@@ -243,6 +253,7 @@ window.onload = function() {
         ifTrueDisplay(false, averagepresets);
         ifTrueDisplay(false, customgoals);
         eiffelBadge.style.backgroundColor = '#7B9F86';
+        $('#paris_modal').modal('show');
     });
     var goalPresetsRadio2 = document.getElementById('goalPresetsRadio2');
     goalPresetsRadio2.addEventListener('click', function() {
@@ -277,7 +288,10 @@ Highcharts.chart('resultsChart', {
         type: 'column'
     },
     title: {
-        text: 'Your impact vs national average and paris climate agreement goal'
+        text: 'Your impact vs national average and paris climate agreement goal',
+        style: {
+            fontSize: '20px'
+        }
     },
     xAxis: {
         categories: [
@@ -285,16 +299,31 @@ Highcharts.chart('resultsChart', {
             'Transportation',
             'Diet'
         ],
+        labels: {
+            style: {
+                fontSize:'16px'
+            }
+        },
         crosshair: true
     },
     yAxis: {
         min: 0,
+        labels: {
+            style: {
+                fontSize:'16px'
+            }
+        },
         title: {
             text: 'Tons of CO2 (t/CO2)'
         }
     },
+    legend: {
+        itemStyle: {
+            fontSize: '16px'
+        }
+    },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        headerFormat: '<span style="font-size:16px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
             '<td style="padding:0"><b>{point.y} t/CO2</b></td></tr>',
         footerFormat: '</table>',
@@ -309,14 +338,17 @@ Highcharts.chart('resultsChart', {
     },
     series: [{
         name: 'US Avg.',
-        data: [1990, 3836, 864]
+        data: [1990, 3836, 864],
+        color: '#305568'
 
     }, {
         name: 'You',
-        data: [1215, 2788, 498]
+        data: [1215, 2788, 498],
+        color: '#596157'
     }, {
-        name: 'Paris Climate Agreement goal',
-        data: [900, 1200, 350]
+        name: 'Paris Climate Agreement',
+        data: [900, 1200, 350],
+        color: '#7BAE7F'
 
     }]
 });
